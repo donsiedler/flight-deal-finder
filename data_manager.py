@@ -13,8 +13,10 @@ headers = {
 
 
 class DataManager:
-    response = requests.get(url=SHEETY_ENDPOINT, headers=headers)
-    response.raise_for_status()
-    data = response.json()
-    print(data)
 
+    @staticmethod
+    def get_sheet_data():
+        response = requests.get(url=SHEETY_ENDPOINT, headers=headers)
+        response.raise_for_status()
+        data = response.json()
+        return data["prices"]
