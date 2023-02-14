@@ -23,3 +23,18 @@ class DataManager:
         data = response.json()
         self.destination_data = data["prices"]
         return self.destination_data
+
+    def update_destination_codes(self):
+        for destination in self.destination_data:
+            new_data = {
+                "price": {
+                    "iataCode": destination["iataCode"],
+                }
+            }
+            response = requests.put(
+                f"{SHEETY_ENDPOINT}/{destination['id']}",
+                json=new_data,
+                headers=headers,
+            )
+            response.raise_for_status()
+            print(response.text)

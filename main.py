@@ -9,5 +9,5 @@ for row in sheet_data:
         flight_search = FlightSearch()
         row["iataCode"] = flight_search.get_destination_code(city_name=row["city"])
 
-print(f"Sheet data: {sheet_data}")
-print(f"Destination data: {data_manager.destination_data}")
+data_manager.destination_data = sheet_data
+data_manager.update_destination_codes()
