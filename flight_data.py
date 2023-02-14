@@ -1,5 +1,4 @@
-from datetime import datetime
-from pprint import pprint
+from datetime import datetime, timedelta
 import requests
 
 from flight_search import KIWI_ENDPOINT, API_HEADERS
@@ -9,14 +8,15 @@ class FlightData:
     def __init__(self, city_code):
         self.fly_from = "LON"
         self.fly_to = city_code,
-        self.date_from = "15/02/2023"  # TODO 1: pass in tomorrow's date
-        self.date_to = "08/03/2023"  # TODO 2: calculate the end date
+        self.date_from = (datetime.today() + timedelta(days=1)).strftime("%d/%m/%Y")  # Tomorrow
+        self.date_to = (datetime.today() + timedelta(days=180)).strftime("%d/%m/%Y")  # In 6 months time
         self.nights_in_dst_from = 7
         self.nights_in_dst_to = 21
         self.ret_from_diff_city = False
         self.ret_to_diff_city = False
         self.curr = "GBP"
         self.limit = 1
+        self.price = None
 
     def get_cheapest_flight(self):
         params = {
@@ -35,4 +35,6 @@ class FlightData:
         response = requests.get(f"{KIWI_ENDPOINT}/v2/search", headers=API_HEADERS, params=params)
         response.raise_for_status()
         data = response.json()
-        pprint(data)
+        self.price = data["data"][0]["price"]
+        print(f"{data['data'][0]['cityTo']}: {self.price} GBP")
+        return self
