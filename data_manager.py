@@ -32,9 +32,8 @@ class DataManager:
                 }
             }
             response = requests.put(
-                f"{SHEETY_ENDPOINT}/{destination['id']}",
+                url=f"{SHEETY_ENDPOINT}/{destination['id']}",
                 json=new_data,
                 headers=headers,
             )
             response.raise_for_status()
-            print(response.text)
