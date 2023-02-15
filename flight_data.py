@@ -46,13 +46,14 @@ class FlightData:
 
         try:
             flight = data["data"][0]
+            print(flight)
             self.price = flight["price"]
-            self.origin_city = flight["origin_city"]
-            self.origin_airport = flight["origin_airport"]
-            self.destination_city = flight["destination_city"]
-            self.destination_airport = flight["destination_airport"]
-            self.out_date = flight["out_date"]
-            self.return_date = flight["return_date"]
+            self.origin_city = flight["cityFrom"]
+            self.origin_airport = flight["route"][0]["flyFrom"]
+            self.destination_city = flight["cityTo"]
+            self.destination_airport = flight["route"][0]["flyTo"]
+            self.out_date = flight["route"][0]["utc_departure"].split("T")[0]
+            self.return_date = flight["route"][1]["utc_departure"].split("T")[0]
 
         except IndexError:
             print(f"No flights found for {self.fly_to}")
