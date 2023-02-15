@@ -21,6 +21,7 @@ class FlightData:
         self.price = None
         self.origin_city = None
         self.origin_airport = None
+        self.destination_city = None
         self.destination_airport = None
         self.out_date = None
         self.return_date = None
@@ -44,8 +45,15 @@ class FlightData:
         data = response.json()
 
         try:
-            self.price = data["data"][0]["price"]
-            print(f"{data['data'][0]['cityTo']}: {self.price} GBP")
+            flight = data["data"][0]
+            self.price = flight["price"]
+            self.origin_city = flight["origin_city"]
+            self.origin_airport = flight["origin_airport"]
+            self.destination_city = flight["destination_city"]
+            self.destination_airport = flight["destination_airport"]
+            self.out_date = flight["out_date"]
+            self.return_date = flight["return_date"]
+
         except IndexError:
             print(f"No flights found for {self.fly_to}")
             return None
