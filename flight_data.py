@@ -16,7 +16,14 @@ class FlightData:
         self.ret_to_diff_city = False
         self.curr = "GBP"
         self.limit = 1
+
+        # Set after successful response from API
         self.price = None
+        self.origin_city = None
+        self.origin_airport = None
+        self.destination_airport = None
+        self.out_date = None
+        self.return_date = None
 
     def get_cheapest_flight(self):
         params = {
