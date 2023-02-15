@@ -1,5 +1,6 @@
 from data_manager import DataManager
 from flight_search import FlightSearch
+from flight_data import FlightData
 
 data_manager = DataManager()
 sheet_data = data_manager.get_destination_data()
@@ -11,3 +12,7 @@ for row in sheet_data:
 
 data_manager.destination_data = sheet_data
 data_manager.update_destination_codes()
+
+for row in sheet_data:
+    flight_data = FlightData(row["iataCode"])
+    flight_data.get_cheapest_flight()
