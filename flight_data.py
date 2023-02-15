@@ -35,6 +35,12 @@ class FlightData:
         response = requests.get(f"{KIWI_ENDPOINT}/v2/search", headers=API_HEADERS, params=params)
         response.raise_for_status()
         data = response.json()
-        self.price = data["data"][0]["price"]
-        print(f"{data['data'][0]['cityTo']}: {self.price} GBP")
+
+        try:
+            self.price = data["data"][0]["price"]
+            print(f"{data['data'][0]['cityTo']}: {self.price} GBP")
+        except IndexError:
+            print(f"No flights found for {self.fly_to}")
+            return None
+
         return self
