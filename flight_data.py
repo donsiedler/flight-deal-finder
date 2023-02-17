@@ -16,6 +16,7 @@ class FlightData:
         self.ret_to_diff_city = False
         self.curr = "GBP"
         self.limit = 1
+        self.max_stopovers = 0
 
         # Set after successful response from API
         self.price = None
@@ -38,6 +39,7 @@ class FlightData:
             "ret_to_diff_city": self.ret_to_diff_city,
             "curr": self.curr,
             "limit": self.limit,
+            "max_stopovers": self.max_stopovers,
         }
 
         response = requests.get(f"{KIWI_ENDPOINT}/v2/search", headers=API_HEADERS, params=params)
